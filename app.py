@@ -11,6 +11,7 @@ model = project.version(2).model
 # Streamlit App
 st.title("Big Cat Classification App")
 
+# Allow user to upload an image
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 
 if uploaded_file is not None:
@@ -18,13 +19,11 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
-    #model.predict("uploaded_file.jpg").save("prediction.jpg")
-    # Convert the UploadedFile to bytes
-    image_bytes = uploaded_file.read()
+    # Get the file path of the uploaded image
+    uploaded_file_path = uploaded_file.name
 
-    # Make prediction using Roboflow
-    #prediction_image = model.predict(io.BytesIO(image_bytes)).image
-    prediction_image = model.predict(uploaded_file).image
+    # Make prediction using Roboflow on the image file
+    prediction_image = model.predict(uploaded_file_path).image
 
-    # Display the annotated image
-    st.image(prediction_image, caption="Prediction.", use_column_width=True)
+    # Display the annotated image with predictions
+    st.image(prediction_image, caption="Prediction Image.", use_column_width=True)

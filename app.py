@@ -23,7 +23,7 @@ if uploaded_file is not None:
     image_bytes = uploaded_file.read()
 
     # Make prediction using Roboflow
-    prediction_image = model.predict(io.BytesIO(image_bytes)).image
+    #prediction_image = model.predict(io.BytesIO(image_bytes)).image
     prediction_image = model.predict(uploaded_file).image
 
     # Display the annotated image

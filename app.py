@@ -27,8 +27,7 @@ if uploaded_file is not None:
 
     # Extract the highest probability class and its confidence
     highest_prob_class = prediction['predictions'][0]['predicted_classes'][0]
-    confidence = (prediction['predictions'][0]['predictions'][highest_prob_class]['confidence'])*100
+    confidence = round(prediction['predictions'][0]['predictions'][highest_prob_class]['confidence'])*100
 
     # Display the highest probability class
-    st.write(f"Predicted Class: {highest_prob_class}")
-    st.write(f"Confidence: {confidence}%")
+    st.write(f"The Big Cat is {confidence}% {highest_prob_class}")

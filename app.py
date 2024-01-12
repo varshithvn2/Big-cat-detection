@@ -30,4 +30,4 @@ if uploaded_file is not None:
     confidence = round(prediction['predictions'][0]['predictions'][highest_prob_class]['confidence'])*100
 
     # Display the highest probability class
-    st.write(f"The Big Cat is {confidence}% {highest_prob_class}")
+    st.write(f"This is a {highest_prob_class}")

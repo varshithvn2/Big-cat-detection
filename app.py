@@ -1,7 +1,6 @@
 import streamlit as st
 from PIL import Image
 from roboflow import Roboflow
-import io
 
 # Initialize Roboflow
 rf = Roboflow(api_key="VWJEsV25FRq11fja5SML")
@@ -19,11 +18,17 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
-    # Get the file path of the uploaded image
-    uploaded_file_path = uploaded_file.name
+    # Save the uploaded image locally
+    uploaded_file_path = "uploaded_image.jpg"
+    image.save(uploaded_file_path)
 
-    # Make prediction using Roboflow on the image file
-    prediction_image = model.predict(uploaded_file_path).image
+    # Make prediction using Roboflow on the local image
+    prediction = model.predict(uploaded_file_path).json()
 
-    # Display the annotated image with predictions
-    st.image(prediction_image, caption="Prediction Image.", use_column_width=True)
+    # Extract the highest probability class and its confidence
+    highest_prob_class = prediction['predictions'][0]['predicted_classes'][0]
+    confidence = prediction['predictions'][0]['predictions'][highest_prob_class]['confidence']
+
+    # Display the highest probability class
+    st.write(f"Predicted Class: {highest_prob_class}")
+    st.write(f"Confidence: {confidence}")

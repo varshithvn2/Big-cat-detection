@@ -18,11 +18,13 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
+    #model.predict("uploaded_file.jpg").save("prediction.jpg")
     # Convert the UploadedFile to bytes
     image_bytes = uploaded_file.read()
 
     # Make prediction using Roboflow
     prediction_image = model.predict(io.BytesIO(image_bytes)).image
+    prediction_image = model.predict(uploaded_file).image
 
     # Display the annotated image
     st.image(prediction_image, caption="Prediction.", use_column_width=True)

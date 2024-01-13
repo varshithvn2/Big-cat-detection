@@ -19,8 +19,11 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     image.save(uploaded_file_path)
 
+    # Create an empty space for displaying messages
+    message_placeholder = st.empty()
+
     # Display a message while the image is being processed
-    st.text("Identifying the Big Cat...")
+    message_placeholder.text("Identifying the Big Cat...")
 
     # Make prediction using Roboflow on the local image
     prediction = model.predict(uploaded_file_path).json()
@@ -29,8 +32,8 @@ if uploaded_file is not None:
     highest_prob_class = prediction['predictions'][0]['predicted_classes'][0]
     confidence = prediction['predictions'][0]['predictions'][highest_prob_class]['confidence']
 
-    # Update the message with the prediction result
-    st.text(f"This is a {highest_prob_class} with confidence: {confidence*100:.2f}%")
+    # Update the message with the prediction result and clear the previous message
+    message_placeholder.text(f"This is a {highest_prob_class} with confidence: {confidence*100:.2f}%")
 
     # Display the uploaded image
     st.image(image, caption="Uploaded Image.", use_column_width=True)

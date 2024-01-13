@@ -14,9 +14,8 @@ st.title("Big Cat Classification App")
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 
 if uploaded_file is not None:
-    # Display the uploaded image
+    # Get the uploaded image
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image.", use_column_width=True)
 
     # Save the uploaded image locally
     uploaded_file_path = "uploaded_image.jpg"
@@ -31,3 +30,6 @@ if uploaded_file is not None:
 
     # Display the highest probability class
     st.write(f"This is a {highest_prob_class}")
+
+    # Preview Image
+    st.image(image, caption="Uploaded Image.", use_column_width=True)
